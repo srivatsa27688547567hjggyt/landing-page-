@@ -12,6 +12,7 @@ CLAUDE.md
 # Root-level non-site folders
 /public/
 /scripts/
+/public/pdf-assets/
 
 # PDF / large assets
 *.pdf
