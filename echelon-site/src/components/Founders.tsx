@@ -20,7 +20,7 @@ const founders = [
     {
         name: "Sophio Meshvildishvili",
         role: "Founder — Real Estate Marketing, Commercial & Sales Strategy",
-        image: "/pdf-assets/page5_img1.jpeg",
+        image: "/founders/sophio_IMG_2411.png",
         bio: [
             "Sophio has over a decade of hands-on experience working with major development companies, in close collaboration with both local and international investors. Her background is rooted in the commercialization of real estate projects and the translation of development strategy into market performance.",
             "Within Echelon International, Sophio is responsible for go-to-market strategy, commercial structuring, and sales management — ensuring projects function as integrated commercial systems rather than isolated marketing initiatives.",
