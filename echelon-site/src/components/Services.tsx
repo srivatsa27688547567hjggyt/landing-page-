@@ -1,4 +1,10 @@
+"use client";
+
 import Image from "next/image";
+import ScrollReveal from "@/components/ScrollReveal";
+import AnimatedText from "@/components/AnimatedText";
+import { StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
+import { motion } from "framer-motion";
 
 const services = [
     {
@@ -31,9 +37,9 @@ const services = [
         tagline: "Branding as a strategic commercial instrument, not visual decoration.",
         image: "/pdf-assets/page11_img1.jpeg",
         items: [
-            "Brand strategy, naming & brand books",
-            "Go-to-market & pricing strategy",
-            "Sales systems, CRM & performance reporting",
+            "Brand architecture, naming systems & full brand books",
+            "Go-to-market strategy, pricing models & launch sequencing",
+            "Sales infrastructure, CRM setup & commercial performance tracking",
         ],
         imageAlign: "right" as const,
     },
@@ -74,10 +80,15 @@ export default function Services() {
                 }}
             >
                 <div>
-                    <p className="section-label reveal" style={{ marginBottom: "1.5rem" }}>Services</p>
-                    <h2
-                        id="services-heading"
-                        className="reveal delay-200"
+                    <ScrollReveal>
+                        <p className="section-label" style={{ marginBottom: "1.5rem" }}>Services</p>
+                    </ScrollReveal>
+                    <AnimatedText
+                        text="Integrated advisory across every dimension"
+                        as="h2"
+                        splitBy="word"
+                        delay={0.1}
+                        staggerChildren={0.05}
                         style={{
                             fontFamily: "var(--font-cormorant), serif",
                             fontSize: "clamp(2.5rem, 5.5vw, 5rem)",
@@ -85,22 +96,21 @@ export default function Services() {
                             color: "var(--bone)",
                             lineHeight: 1.0,
                         }}
-                    >
-                        Integrated advisory across every <em style={{ color: "var(--bone-dim)" }}>dimension</em>
-                    </h2>
+                    />
                 </div>
-                <p
-                    className="reveal delay-300"
-                    style={{
-                        fontFamily: "var(--font-inter), sans-serif",
-                        fontSize: "1rem",
-                        color: "var(--bone-dim)",
-                        lineHeight: 1.8,
-                        alignSelf: "end",
-                    }}
-                >
-                    Echelon International provides integrated advisory services across hospitality, wellness, spa, and real estate development — treating each project as a complete strategic system.
-                </p>
+                <ScrollReveal delay={0.2}>
+                    <p
+                        style={{
+                            fontFamily: "var(--font-inter), sans-serif",
+                            fontSize: "1rem",
+                            color: "var(--bone-dim)",
+                            lineHeight: 1.8,
+                            alignSelf: "end",
+                        }}
+                    >
+                        Echelon International provides integrated advisory services across hospitality, wellness, spa, and real estate development — treating each project as a complete strategic system.
+                    </p>
+                </ScrollReveal>
             </div>
 
             {/* Service Cards */}
@@ -126,54 +136,55 @@ export default function Services() {
                     >
                         {/* Text side */}
                         {svc.imageAlign === "right" && (
-                            <div
-                                className="reveal-left"
-                                style={{
-                                    padding: "5rem 4rem 5rem 0",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    justifyContent: "center",
-                                }}
-                            >
+                            <ScrollReveal direction="left" style={{
+                                padding: "5rem 4rem 5rem 0",
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                            }}>
                                 <ServiceContent svc={svc} />
-                            </div>
+                            </ScrollReveal>
                         )}
 
-                        {/* Image */}
-                        <div
-                            className={svc.imageAlign === "right" ? "reveal-right" : "reveal-left"}
+                        {/* Image with hover zoom */}
+                        <ScrollReveal
+                            direction={svc.imageAlign === "right" ? "right" : "left"}
                             style={{ position: "relative", overflow: "hidden", minHeight: "420px" }}
                         >
-                            <Image
-                                src={svc.image}
-                                alt={svc.title}
-                                fill
-                                style={{ objectFit: "cover" }}
-                                sizes="(max-width: 768px) 100vw, 45vw"
-                            />
+                            <motion.div
+                                whileHover={{ scale: 1.05 }}
+                                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                                style={{ position: "absolute", inset: 0 }}
+                            >
+                                <Image
+                                    src={svc.image}
+                                    alt={svc.title}
+                                    fill
+                                    style={{ objectFit: "cover" }}
+                                    sizes="(max-width: 768px) 100vw, 45vw"
+                                />
+                            </motion.div>
                             <div style={{
                                 position: "absolute",
                                 inset: 0,
                                 background: svc.imageAlign === "right"
                                     ? "linear-gradient(90deg, transparent 60%, rgba(26,24,22,0.3) 100%)"
                                     : "linear-gradient(90deg, rgba(26,24,22,0.3) 0%, transparent 40%)",
+                                zIndex: 1,
                             }} />
-                        </div>
+                        </ScrollReveal>
 
                         {/* Text side — left image variant */}
                         {svc.imageAlign === "left" && (
-                            <div
-                                className="reveal-right"
-                                style={{
-                                    padding: "5rem 0 5rem 4rem",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    justifyContent: "center",
-                                    borderLeft: "1px solid rgba(200,80,26,0.15)",
-                                }}
-                            >
+                            <ScrollReveal direction="right" style={{
+                                padding: "5rem 0 5rem 4rem",
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                borderLeft: "1px solid rgba(200,80,26,0.15)",
+                            }}>
                                 <ServiceContent svc={svc} />
-                            </div>
+                            </ScrollReveal>
                         )}
                     </div>
                 </div>
@@ -185,17 +196,22 @@ export default function Services() {
 function ServiceContent({ svc }: { svc: typeof services[0] }) {
     return (
         <>
-            <p style={{
-                fontFamily: "var(--font-cormorant), serif",
-                fontSize: "6rem",
-                fontWeight: 300,
-                color: "var(--orange)",
-                opacity: 0.25,
-                lineHeight: 1,
-                marginBottom: "1rem",
-            }}>
+            <motion.p
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 0.25, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                style={{
+                    fontFamily: "var(--font-cormorant), serif",
+                    fontSize: "6rem",
+                    fontWeight: 300,
+                    color: "var(--orange)",
+                    lineHeight: 1,
+                    marginBottom: "1rem",
+                }}
+            >
                 {svc.num}
-            </p>
+            </motion.p>
 
             <h3 style={{
                 fontFamily: "var(--font-cormorant), serif",
@@ -219,12 +235,22 @@ function ServiceContent({ svc }: { svc: typeof services[0] }) {
                 {svc.tagline}
             </p>
 
-            <div style={{ width: "40px", height: "1px", backgroundColor: "var(--orange)", marginBottom: "1.5rem" }} />
+            <motion.div
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                style={{ width: "40px", height: "1px", backgroundColor: "var(--orange)", marginBottom: "1.5rem", transformOrigin: "left" }}
+            />
 
             <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.8rem" }}>
-                {svc.items.map((item) => (
-                    <li
+                {svc.items.map((item, idx) => (
+                    <motion.li
                         key={item}
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.1 * idx, ease: [0.16, 1, 0.3, 1] }}
                         style={{
                             fontFamily: "var(--font-inter), sans-serif",
                             fontSize: "0.9rem",
@@ -244,7 +270,7 @@ function ServiceContent({ svc }: { svc: typeof services[0] }) {
                             flexShrink: 0,
                         }} />
                         {item}
-                    </li>
+                    </motion.li>
                 ))}
             </ul>
         </>

@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
     { href: "#about", label: "About" },
@@ -14,6 +16,7 @@ const navLinks = [
 export default function NavBar() {
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
+    const [hoveredLink, setHoveredLink] = useState<string | null>(null);
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 60);
@@ -22,7 +25,10 @@ export default function NavBar() {
     }, []);
 
     return (
-        <nav
+        <motion.nav
+            initial={{ y: -100 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             style={{
                 position: "fixed",
                 top: 0,
@@ -34,9 +40,9 @@ export default function NavBar() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
-                backgroundColor: scrolled ? "rgba(26,24,22,0.96)" : "transparent",
-                backdropFilter: scrolled ? "blur(10px)" : "none",
-                borderBottom: scrolled ? "1px solid rgba(200,80,26,0.15)" : "1px solid transparent",
+                backgroundColor: scrolled ? "rgba(26,24,22,0.92)" : "transparent",
+                backdropFilter: scrolled ? "blur(12px)" : "none",
+                borderBottom: scrolled ? "1px solid rgba(200,80,26,0.12)" : "1px solid transparent",
                 transition: "background-color 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease",
             }}
             aria-label="Main navigation"
@@ -45,17 +51,24 @@ export default function NavBar() {
             <a
                 href="#"
                 style={{
-                    fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
-                    fontSize: "1.25rem",
-                    fontWeight: 500,
-                    letterSpacing: "0.18em",
-                    color: "var(--bone)",
+                    display: "flex",
+                    alignItems: "center",
                     textDecoration: "none",
-                    textTransform: "uppercase",
-                    lineHeight: 1,
                 }}
             >
-                Echelon<span style={{ color: "var(--orange)" }}>.</span>
+                <motion.div 
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    style={{ position: "relative", width: "160px", height: "40px" }}
+                >
+                    <Image
+                        src="/logo-light.png"
+                        alt="Echelon International"
+                        fill
+                        style={{ objectFit: "contain", objectPosition: "left center" }}
+                        priority
+                    />
+                </motion.div>
             </a>
 
             {/* Desktop Links */}
@@ -67,9 +80,10 @@ export default function NavBar() {
                     alignItems: "center",
                 }}
                 className="nav-links-desktop"
+                onMouseLeave={() => setHoveredLink(null)}
             >
                 {navLinks.map((link) => (
-                    <li key={link.href}>
+                    <li key={link.href} style={{ position: "relative" }}>
                         <a
                             href={link.href}
                             style={{
@@ -78,21 +92,35 @@ export default function NavBar() {
                                 fontWeight: 400,
                                 letterSpacing: "0.12em",
                                 textTransform: "uppercase",
-                                color: "var(--bone-dim)",
+                                color: hoveredLink === link.href ? "var(--bone)" : "var(--bone-dim)",
                                 textDecoration: "none",
-                                transition: "color 0.25s ease",
-                                position: "relative",
+                                transition: "color 0.3s ease",
+                                padding: "0.5rem 0",
                             }}
-                            onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--bone)")}
-                            onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "var(--bone-dim)")}
+                            onMouseEnter={() => setHoveredLink(link.href)}
                         >
                             {link.label}
                         </a>
+                        {hoveredLink === link.href && (
+                            <motion.div
+                                layoutId="nav-underline"
+                                style={{
+                                    position: "absolute",
+                                    bottom: "-2px",
+                                    left: 0,
+                                    right: 0,
+                                    height: "1px",
+                                    backgroundColor: "var(--orange)",
+                                }}
+                                transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
+                            />
+                        )}
                     </li>
                 ))}
-                <li>
+                <li style={{ marginLeft: "1rem" }}>
                     <a
                         href="#contact"
+                        data-cursor="contact"
                         style={{
                             fontFamily: "var(--font-inter), sans-serif",
                             fontSize: "0.725rem",
@@ -101,13 +129,19 @@ export default function NavBar() {
                             textTransform: "uppercase",
                             color: "var(--charcoal)",
                             backgroundColor: "var(--orange)",
-                            padding: "0.55rem 1.2rem",
+                            padding: "0.55rem 1.4rem",
                             textDecoration: "none",
-                            transition: "background-color 0.25s ease",
+                            transition: "background-color 0.3s ease, transform 0.3s ease",
                             display: "inline-block",
                         }}
-                        onMouseEnter={(e) => ((e.target as HTMLElement).style.backgroundColor = "var(--orange-hover)")}
-                        onMouseLeave={(e) => ((e.target as HTMLElement).style.backgroundColor = "var(--orange)")}
+                        onMouseEnter={(e) => {
+                            (e.target as HTMLElement).style.backgroundColor = "var(--orange-hover)";
+                            (e.target as HTMLElement).style.transform = "translateY(-1px)";
+                        }}
+                        onMouseLeave={(e) => {
+                            (e.target as HTMLElement).style.backgroundColor = "var(--orange)";
+                            (e.target as HTMLElement).style.transform = "translateY(0)";
+                        }}
                     >
                         Inquire
                     </a>
@@ -185,6 +219,6 @@ export default function NavBar() {
           .hamburger { display: flex !important; }
         }
       `}</style>
-        </nav>
+        </motion.nav>
     );
 }

@@ -1,4 +1,10 @@
-import Image from "next/image";
+"use client";
+
+import ScrollReveal from "@/components/ScrollReveal";
+import { StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
+import AnimatedText from "@/components/AnimatedText";
+import ParallaxImage from "@/components/ParallaxImage";
+import { motion } from "framer-motion";
 
 export default function Philosophy() {
     return (
@@ -11,28 +17,31 @@ export default function Philosophy() {
                 borderTop: "1px solid rgba(200,80,26,0.15)",
             }}
         >
-            {/* Full-bleed atmospheric image */}
+            {/* Full-bleed atmospheric image with parallax */}
             <div style={{ position: "relative", minHeight: "70vh", display: "flex", alignItems: "center" }}>
-                <div style={{ position: "absolute", inset: 0 }}>
-                    <Image
-                        src="/pdf-assets/page6_img1.jpeg"
-                        alt="Strategic philosophy"
-                        fill
-                        style={{ objectFit: "cover", objectPosition: "center" }}
-                        sizes="100vw"
-                    />
-                    {/* Heavy dark overlay */}
-                    <div style={{
-                        position: "absolute",
-                        inset: 0,
-                        background: "linear-gradient(135deg, rgba(26,24,22,0.92) 0%, rgba(26,24,22,0.7) 60%, rgba(26,24,22,0.85) 100%)",
-                    }} />
-                </div>
+                <ParallaxImage
+                    src="/pdf-assets/page6_img1.jpeg"
+                    alt="Strategic philosophy"
+                    speed={0.15}
+                    sizes="100vw"
+                    style={{ position: "absolute", inset: 0 }}
+                    overlay={
+                        <>
+                            <div style={{
+                                position: "absolute",
+                                inset: 0,
+                                zIndex: 1,
+                                background: "linear-gradient(135deg, rgba(26,24,22,0.92) 0%, rgba(26,24,22,0.7) 60%, rgba(26,24,22,0.85) 100%)",
+                            }} />
+                        </>
+                    }
+                />
 
                 {/* Grain texture */}
                 <div style={{
                     position: "absolute",
                     inset: 0,
+                    zIndex: 2,
                     backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E\")",
                     backgroundRepeat: "repeat",
                     backgroundSize: "200px",
@@ -41,17 +50,22 @@ export default function Philosophy() {
 
                 <div style={{
                     position: "relative",
-                    zIndex: 2,
+                    zIndex: 3,
                     maxWidth: "1400px",
                     margin: "0 auto",
                     padding: "8rem 2.5rem",
                     width: "100%",
                 }}>
-                    <p className="section-label reveal" style={{ marginBottom: "2.5rem" }}>Our Philosophy</p>
+                    <ScrollReveal>
+                        <p className="section-label" style={{ marginBottom: "2.5rem" }}>Our Philosophy</p>
+                    </ScrollReveal>
 
-                    <h2
-                        id="philosophy-heading"
-                        className="reveal delay-200"
+                    <AnimatedText
+                        text="We engage with projects at the stage where strategic clarity determines future value."
+                        as="h2"
+                        splitBy="word"
+                        delay={0.15}
+                        staggerChildren={0.04}
                         style={{
                             fontFamily: "var(--font-cormorant), serif",
                             fontSize: "clamp(2rem, 5.5vw, 5.5rem)",
@@ -62,21 +76,27 @@ export default function Philosophy() {
                             maxWidth: "900px",
                             marginBottom: "3rem",
                         }}
-                    >
-                        &ldquo;We engage with projects at the stage where strategic clarity determines future value.&rdquo;
-                    </h2>
+                    />
 
-                    <div className="reveal delay-300" style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
-                        <div style={{ width: "40px", height: "1px", backgroundColor: "var(--orange)" }} />
-                        <p style={{
-                            fontFamily: "var(--font-inter), sans-serif",
-                            fontSize: "0.85rem",
-                            color: "var(--bone-dim)",
-                            letterSpacing: "0.05em",
-                        }}>
-                            Echelon International — Advisory Philosophy
-                        </p>
-                    </div>
+                    <ScrollReveal delay={0.3} direction="left">
+                        <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
+                            <motion.div
+                                initial={{ scaleX: 0 }}
+                                whileInView={{ scaleX: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                                style={{ width: "40px", height: "1px", backgroundColor: "var(--orange)", transformOrigin: "left" }}
+                            />
+                            <p style={{
+                                fontFamily: "var(--font-inter), sans-serif",
+                                fontSize: "0.85rem",
+                                color: "var(--bone-dim)",
+                                letterSpacing: "0.05em",
+                            }}>
+                                Echelon International — Advisory Philosophy
+                            </p>
+                        </div>
+                    </ScrollReveal>
                 </div>
             </div>
 
@@ -87,7 +107,8 @@ export default function Philosophy() {
                     padding: "6rem 2.5rem",
                 }}
             >
-                <div
+                <StaggerContainer
+                    stagger={0.15}
                     style={{
                         maxWidth: "1400px",
                         margin: "0 auto",
@@ -114,9 +135,8 @@ export default function Philosophy() {
                             body: "Short-term gains are secondary. We position assets for lasting performance, perception, and institutional-grade appeal.",
                         },
                     ].map((pillar, i) => (
-                        <div
+                        <StaggerItem
                             key={pillar.num}
-                            className={`reveal delay-${(i + 1) * 100}`}
                             style={{
                                 padding: "3.5rem 2.5rem",
                                 borderRight: i < 2 ? "1px solid rgba(200,80,26,0.15)" : "none",
@@ -151,9 +171,9 @@ export default function Philosophy() {
                             }}>
                                 {pillar.body}
                             </p>
-                        </div>
+                        </StaggerItem>
                     ))}
-                </div>
+                </StaggerContainer>
             </div>
         </section>
     );
