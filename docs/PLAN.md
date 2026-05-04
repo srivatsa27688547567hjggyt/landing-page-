@@ -1,26 +1,40 @@
-# Founders Photos Update Plan
+# Partner Logos and Mobile Optimization Plan
 
 ## Objective
-Update the founders' photos in the `echelon-site/src/components/Founders.tsx` component following the `@[/orchestrate]` workflow rules.
+Update the partner logos in the `Partners.tsx` component to match the new list, change their style to "round", and ensure the section is fully mobile-friendly.
 
-## Phase 1 Findings
-The founders' data is located in `echelon-site/src/components/Founders.tsx`. Current images used:
-1. Elena Ristavaara: `/pdf-assets/page4_img1.jpeg`
-2. Sophio Meshvildishvili: `/pdf-assets/page5_img1.jpeg`
+## User Review Required
+> [!IMPORTANT]
+> **Asset Preparation**: I cannot directly save the logos from the provided image into your local filesystem.
+> Please extract the logos from the image and save them into `echelon-site/public/partners/` as `.png` or `.svg` files.
+> Once done, let me know the filenames.
 
-## Proposed Changes (Phase 2)
+## Proposed Changes
 
-### `frontend-specialist`
-- **Modify** `echelon-site/src/components/Founders.tsx`:
-  - Update `image` paths in the `founders` array to point to the newly provided photos.
+### [Phase 1] Analysis & Solutions
+- **Logo Style**: We will wrap each logo in a circular container with a subtle border and glassmorphic background to match the luxury aesthetic.
+- **Mobile Responsiveness**: We will add media queries to handle smaller screens, adjusting the marquee height and the staggered list columns.
 
-### Data Preparation
-- **Action Required by User**: Since I cannot save images attached to our chat directly to the local disk, please save the two new founder photos into the `echelon-site/public/pdf-assets/` directory.
+### [Phase 2] Implementation (Pending Approval)
 
-### `test-engineer` & Verification
-- Check the layout rendering consistency with the new images.
-- Run `python .agent/scripts/checklist.py .` to ensure lint, security, and UI checks pass.
-- Execute security scan: `python .agent/skills/vulnerability-scanner/scripts/security_scan.py .`
+---
+
+#### [Component] `frontend-specialist`
+##### [MODIFY] [Partners.tsx](file:///c:/Users/nandu/Desktop/DEMO%20LANDING/echelon-site/src/components/Partners.tsx)
+- Update `partnerImages` array with the new list of brands.
+- Implement circular containers for logos using `border-radius: 50%`.
+- Add responsive styles using `clamp()` or standard media queries for grid/flex layouts.
+- Enhance the marquee implementation for mobile (adjusted speed and padding).
+
+---
+
+#### [Verification] `test-engineer`
+- **Visual Audit**: Verify the "round" style looks premium and logos are properly centered.
+- **Mobile Test**: Validate layout on 375px, 768px, and 1024px widths.
+- **Run Scripts**:
+  - `python .agent/skills/lint-and-validate/scripts/lint_runner.py echelon-site/src/components/Partners.tsx`
+  - `python .agent/skills/vulnerability-scanner/scripts/security_scan.py .`
 
 ## Approval
-Please reply with `Y` to approve this plan, and let me know the file names you saved the photos as (or if you simply overwrote the existing `page4_img1.jpeg` and `page5_img1.jpeg`).
+Please reply with **"Y"** to approve this plan.
+Also, please confirm if you have saved the individual logo files.
