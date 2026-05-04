@@ -71,7 +71,7 @@ export default function NavBar() {
                     }}
                 >
                     <Image
-                        src="/logo-light.png"
+                        src="/logo-round.png"
                         alt="Echelon International"
                         fill
                         style={{ objectFit: "contain", padding: "8px" }}
