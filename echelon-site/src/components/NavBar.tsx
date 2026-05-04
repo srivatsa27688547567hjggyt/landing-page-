@@ -61,8 +61,8 @@ export default function NavBar() {
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                     style={{
                         position: "relative",
-                        width: "clamp(120px, 15vw, 180px)",
-                        height: "clamp(48px, 6vw, 64px)",
+                        width: "clamp(160px, 18vw, 220px)",
+                        height: "clamp(56px, 7vw, 80px)",
                         display: "flex",
                         alignItems: "center",
                         overflow: "hidden",
