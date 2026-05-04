@@ -56,16 +56,25 @@ export default function NavBar() {
                     textDecoration: "none",
                 }}
             >
-                <motion.div 
+                <motion.div
                     whileHover={{ scale: 1.05 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    style={{ position: "relative", width: "160px", height: "40px" }}
+                    style={{
+                        position: "relative",
+                        width: "clamp(48px, 10vw, 64px)",
+                        height: "clamp(48px, 10vw, 64px)",
+                        borderRadius: "50%",
+                        overflow: "hidden",
+                        backgroundColor: "rgba(255,255,255,0.03)",
+                        border: "1px solid rgba(200,80,26,0.15)",
+                        flexShrink: 0
+                    }}
                 >
                     <Image
                         src="/logo-light.png"
                         alt="Echelon International"
                         fill
-                        style={{ objectFit: "contain", objectPosition: "left center" }}
+                        style={{ objectFit: "contain", padding: "8px" }}
                         priority
                     />
                 </motion.div>
