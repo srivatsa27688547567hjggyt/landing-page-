@@ -61,20 +61,19 @@ export default function NavBar() {
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                     style={{
                         position: "relative",
-                        width: "clamp(48px, 10vw, 64px)",
-                        height: "clamp(48px, 10vw, 64px)",
-                        borderRadius: "50%",
+                        width: "clamp(120px, 15vw, 180px)",
+                        height: "clamp(48px, 6vw, 64px)",
+                        display: "flex",
+                        alignItems: "center",
                         overflow: "hidden",
-                        backgroundColor: "rgba(255,255,255,0.03)",
-                        border: "1px solid rgba(200,80,26,0.15)",
                         flexShrink: 0
                     }}
                 >
                     <Image
-                        src="/logo-round.png"
+                        src="/main-logo.png"
                         alt="Echelon International"
                         fill
-                        style={{ objectFit: "contain", padding: "8px" }}
+                        style={{ objectFit: "contain", padding: "4px" }}
                         priority
                     />
                 </motion.div>
