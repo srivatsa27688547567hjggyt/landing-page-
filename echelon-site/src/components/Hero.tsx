@@ -12,9 +12,9 @@ export default function Hero() {
     const containerRef = useRef<HTMLElement>(null);
     const { scrollY } = useScroll();
     
-    // Parallax values for content
-    const y1 = useTransform(scrollY, [0, 500], [0, 200]);
-    const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+    // Parallax values for content — starts immediately for premium feel, but fades slower for readability
+    const y1 = useTransform(scrollY, [0, 1000], [0, 400]);
+    const opacity = useTransform(scrollY, [0, 700], [1, 0]);
 
     return (
         <section
@@ -138,7 +138,7 @@ export default function Hero() {
                                 color: "var(--orange)",
                             }}
                         >
-                            Integrated Advisory
+                            INTERNATIONAL SALES ADVISORY
                         </p>
                     </motion.div>
 
@@ -177,24 +177,80 @@ export default function Hero() {
                         ))}
                     </div>
 
-                    {/* Tagline */}
-                    <AnimatedText
-                        text="One Integrated Strategic System — from concept to commercialization and capital."
-                        as="p"
-                        variant="blur"
-                        delay={1.2}
-                        staggerChildren={0.02}
-                        style={{
-                            fontFamily: "var(--font-cormorant), serif",
-                            fontSize: "clamp(1.2rem, 2.2vw, 1.75rem)",
-                            fontWeight: 300,
-                            fontStyle: "italic",
-                            color: "var(--bone-dim)",
-                            maxWidth: "520px",
-                            marginBottom: "3.5rem",
-                            lineHeight: 1.45,
-                        }}
-                    />
+                    {/* Service Rows */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 1, delay: 0.4 }}
+                        style={{ display: "flex", flexDirection: "column", gap: "2rem", marginBottom: "3.5rem" }}
+                    >
+                        {[
+                            { 
+                                icon: (
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="square" strokeLinejoin="miter">
+                                        <path d="M3 21h18"></path>
+                                        <path d="M5 21V7l8-4v18"></path>
+                                        <path d="M19 21V11l-6-4"></path>
+                                        <path d="M9 9v.01"></path>
+                                        <path d="M9 13v.01"></path>
+                                        <path d="M9 17v.01"></path>
+                                    </svg>
+                                ), 
+                                title: "Hotels · wellness · spa", 
+                                desc: "Bringing international hotel, wellness, and spa brands into high-potential destinations." 
+                            },
+                            { 
+                                icon: (
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="square" strokeLinejoin="miter">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                    </svg>
+                                ), 
+                                title: "REAL ESTATE INVESTMENTS", 
+                                desc: "Connecting international investors with landmark real estate opportunities." 
+                            },
+                            { 
+                                icon: (
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="square" strokeLinejoin="miter">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+                                ), 
+                                title: "DESTINATION MARKETING", 
+                                desc: "World-class expertise, international partners, and strategic market positioning." 
+                            }
+                        ].map((item, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.8, delay: 0.6 + i * 0.2 }}
+                                style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}
+                            >
+                                <span style={{ color: "var(--orange)", display: "flex", alignItems: "center", justifyContent: "center", width: "32px" }}>{item.icon}</span>
+                                <div style={{ width: "2px", height: "50px", backgroundColor: "var(--orange)" }} />
+                                <div>
+                                    <h3 style={{
+                                        fontFamily: "var(--font-inter), sans-serif",
+                                        fontSize: "0.85rem",
+                                        letterSpacing: "0.15em",
+                                        textTransform: "uppercase",
+                                        color: "var(--bone)",
+                                        marginBottom: "0.25rem",
+                                        fontWeight: 600
+                                    }}>{item.title}</h3>
+                                    <p style={{
+                                        fontFamily: "var(--font-inter), sans-serif",
+                                        fontSize: "1rem",
+                                        color: "var(--bone-dim)",
+                                        fontWeight: 300,
+                                        maxWidth: "500px"
+                                    }}>{item.desc}</p>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </motion.div>
 
                     {/* CTA */}
                     <motion.div
@@ -230,10 +286,7 @@ export default function Hero() {
                                     (e.currentTarget as HTMLElement).style.backgroundColor = "var(--orange)";
                                 }}
                             >
-                                <span style={{ position: "relative", zIndex: 1 }}>See How We Work</span>
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" style={{ position: "relative", zIndex: 1 }}>
-                                    <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" />
-                                </svg>
+                                <span style={{ position: "relative", zIndex: 1 }}>VIEW INVESTMENT OPPORTUNITIES &rarr;</span>
                             </a>
                         </Magnetic>
                         
@@ -264,7 +317,7 @@ export default function Hero() {
                                     (e.currentTarget as HTMLElement).style.borderColor = "rgba(200,80,26,0.3)";
                                 }}
                             >
-                                Start a Conversation
+                                DISCUSS YOUR INVESTMENT
                             </a>
                         </Magnetic>
                     </motion.div>

@@ -20,42 +20,85 @@ export default function CaseStudy() {
         >
             {/* Full-bleed hero image with parallax */}
             <ScrollReveal direction="scale">
-                <ParallaxImage
-                    src="/pdf-assets/page15_img1.jpeg"
-                    alt="Ensana Hotels Sairme Resort"
-                    speed={0.12}
-                    sizes="100vw"
-                    objectPosition="center 60%"
-                    style={{ height: "60vh" }}
-                    overlay={
-                        <>
-                            <div style={{
-                                position: "absolute",
-                                inset: 0,
-                                zIndex: 1,
-                                background: "linear-gradient(180deg, transparent 40%, var(--charcoal) 100%)",
-                            }} />
-                            {/* Overlay label */}
-                            <div style={{
-                                position: "absolute",
-                                bottom: "2rem",
-                                left: "2.5rem",
-                                zIndex: 2,
-                            }}>
-                                <p style={{
-                                    fontFamily: "var(--font-inter), sans-serif",
-                                    fontSize: "0.65rem",
-                                    letterSpacing: "0.25em",
-                                    textTransform: "uppercase",
-                                    color: "var(--orange)",
-                                    marginBottom: "0.5rem",
+                <a 
+                    href="https://bm.ge/news/ensana-saqartvelos-bazarze-shemodis-evropuli-lideri-sameditsino-spa-brendi-2026-tslidan-sairmis-sam-kurorts-ukhelmdzghvanelebs?fbclid=IwY2xjawRx__BleHRuA2FlbQIxMABicmlkETFMRndqRHpRSGFLT2FpNWR4c3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHs52AypoIc6pjvnLID93mWqcJqbgieufzT4DlsmaqMeJGT_ufHO4W3qErBlU_aem_CtaiAcpcjAXhDG31UFS3Wg"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                        display: "block",
+                        cursor: "pointer",
+                        transition: "opacity 0.3s ease",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
+                    onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+                >
+                    <ParallaxImage
+                        src="/pdf-assets/page15_img1.jpeg"
+                        alt="Ensana Hotels Sairme Resort"
+                        speed={0.12}
+                        sizes="100vw"
+                        objectPosition="center 60%"
+                        style={{ height: "60vh" }}
+                        overlay={
+                            <>
+                                <div style={{
+                                    position: "absolute",
+                                    inset: 0,
+                                    zIndex: 1,
+                                    background: "linear-gradient(180deg, transparent 40%, var(--charcoal) 100%)",
+                                }} />
+                                {/* Overlay label */}
+                                <div style={{
+                                    position: "absolute",
+                                    bottom: "2rem",
+                                    left: "2.5rem",
+                                    zIndex: 2,
                                 }}>
-                                    Selected Project Experience
-                                </p>
-                            </div>
-                        </>
-                    }
-                />
+                                    <p style={{
+                                        fontFamily: "var(--font-inter), sans-serif",
+                                        fontSize: "0.65rem",
+                                        letterSpacing: "0.25em",
+                                        textTransform: "uppercase",
+                                        color: "var(--orange)",
+                                        marginBottom: "0.5rem",
+                                    }}>
+                                        Selected Project Experience
+                                    </p>
+                                </div>
+                                {/* Read Article Indicator */}
+                                <div style={{
+                                    position: "absolute",
+                                    bottom: "2rem",
+                                    right: "2.5rem",
+                                    zIndex: 2,
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "0.5rem",
+                                    backgroundColor: "rgba(26,24,22,0.6)",
+                                    backdropFilter: "blur(8px)",
+                                    border: "1px solid rgba(240,235,225,0.1)",
+                                    padding: "0.75rem 1.25rem",
+                                    borderRadius: "100px",
+                                }}>
+                                    <span style={{
+                                        fontFamily: "var(--font-inter), sans-serif",
+                                        fontSize: "0.65rem",
+                                        fontWeight: 500,
+                                        letterSpacing: "0.15em",
+                                        textTransform: "uppercase",
+                                        color: "var(--bone)",
+                                    }}>
+                                        Read Article
+                                    </span>
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                                        <polyline points="7 7 17 7 17 17"></polyline>
+                                    </svg>
+                                </div>
+                            </>
+                        }
+                    />
+                </a>
             </ScrollReveal>
 
             {/* Content */}
