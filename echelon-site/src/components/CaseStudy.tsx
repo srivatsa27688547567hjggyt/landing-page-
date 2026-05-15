@@ -274,7 +274,6 @@ export default function CaseStudy() {
                                     position: "relative",
                                     aspectRatio: "16/9",
                                     overflow: "hidden",
-                                    marginLeft: "3rem",
                                 }}
                             >
                                 <Image
@@ -285,28 +284,6 @@ export default function CaseStudy() {
                                     sizes="40vw"
                                 />
                             </motion.div>
-                        </ScrollReveal>
-                        {/* Ensana Hotels logo */}
-                        <ScrollReveal delay={0.35}>
-                            <div
-                                style={{
-                                    marginLeft: "auto",
-                                    padding: "1.25rem 2rem",
-                                    border: "1px solid rgba(200,80,26,0.2)",
-                                    backgroundColor: "rgba(240,235,225,0.04)",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                }}
-                            >
-                                <Image
-                                    src="/pdf-assets/page14_img14.jpeg"
-                                    alt="Ensana Hotels"
-                                    width={200}
-                                    height={80}
-                                    style={{ objectFit: "contain", filter: "brightness(0) invert(1) opacity(0.7)" }}
-                                />
-                            </div>
                         </ScrollReveal>
                     </div>
                 </div>
