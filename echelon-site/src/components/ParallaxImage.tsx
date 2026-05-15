@@ -87,12 +87,12 @@ export function HeroImage({
 }) {
     return (
         <motion.div
-            initial={{ scale: 1.1 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+            animate={{ scale: [1, 1.05] }}
+            transition={{ duration: 25, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
             style={{
                 position: "absolute",
                 inset: 0,
+                willChange: "transform",
             }}
         >
             <Image
@@ -101,6 +101,7 @@ export function HeroImage({
                 fill
                 style={{ objectFit: "cover", objectPosition }}
                 priority
+                quality={85}
                 sizes={sizes}
             />
             {overlay}

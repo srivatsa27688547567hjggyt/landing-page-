@@ -13,7 +13,8 @@ export default function Hero() {
     const { scrollY } = useScroll();
     
     // Parallax values for content — starts immediately for premium feel, but fades slower for readability
-    const y1 = useTransform(scrollY, [0, 1000], [0, 400]);
+    const y1 = useTransform(scrollY, [0, 1000], [0, -200]); // Aggressive upward scroll for depth
+    const bgY = useTransform(scrollY, [0, 1000], [0, 300]); // Background pushes down
     const opacity = useTransform(scrollY, [0, 700], [1, 0]);
 
     return (
@@ -31,7 +32,7 @@ export default function Hero() {
             }}
         >
             {/* Background image — editorial bleed on the right with zoom-in */}
-            <div
+            <motion.div
                 style={{
                     position: "absolute",
                     top: 0,
@@ -39,14 +40,28 @@ export default function Hero() {
                     width: "52%",
                     height: "100%",
                     zIndex: 1,
+                    y: bgY,
+                    overflow: "hidden",
+                    willChange: "transform"
                 }}
             >
                 <HeroImage
-                    src="/pdf-assets/page2_img1.jpeg"
-                    alt="Luxury resort destination"
+                    src="/hero-bg.jpg"
+                    alt="City skyscrapers shot from below"
                     sizes="52vw"
                     overlay={
                         <>
+                            {/* Dark overlay for cinematic feel and text readability (Animated reveal) */}
+                            <motion.div
+                                initial={{ backgroundColor: "rgba(0, 0, 0, 0.95)" }}
+                                animate={{ backgroundColor: "rgba(0, 0, 0, 0.55)" }}
+                                transition={{ duration: 2.5, ease: "easeOut" }}
+                                style={{
+                                    position: "absolute",
+                                    inset: 0,
+                                }}
+                            />
+                            {/* Edge blending gradients */}
                             <div
                                 style={{
                                     position: "absolute",
@@ -61,30 +76,30 @@ export default function Hero() {
                                     background: "linear-gradient(180deg, transparent 60%, var(--charcoal) 100%)",
                                 }}
                             />
-                            {/* Subtle light glint */}
+                            {/* Glass glint sweep */}
                             <motion.div
                                 animate={{
-                                    opacity: [0, 0.15, 0],
-                                    x: ["-100%", "100%"],
+                                    x: ["-100%", "150%"],
                                 }}
                                 transition={{
-                                    duration: 3,
+                                    duration: 5,
                                     repeat: Infinity,
-                                    repeatDelay: 5,
+                                    repeatDelay: 8,
                                     ease: "easeInOut",
                                 }}
                                 style={{
                                     position: "absolute",
                                     inset: 0,
-                                    background: "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%)",
+                                    background: "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.08) 45%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.08) 55%, transparent 60%)",
                                     zIndex: 2,
                                     pointerEvents: "none",
+                                    willChange: "transform"
                                 }}
                             />
                         </>
                     }
                 />
-            </div>
+            </motion.div>
 
             {/* Tiny grain texture overlay */}
             <div
@@ -128,18 +143,21 @@ export default function Hero() {
                         style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "2rem" }}
                     >
                         <div style={{ width: "30px", height: "1px", backgroundColor: "var(--orange)" }} />
-                        <p
+                        <motion.p
+                            initial={{ letterSpacing: "0.5em", filter: "blur(4px)" }}
+                            animate={{ letterSpacing: "0.28em", filter: "blur(0px)" }}
+                            transition={{ duration: 1.5, delay: 0.3, ease: "easeOut" }}
                             style={{
                                 fontFamily: "var(--font-inter), sans-serif",
                                 fontSize: "0.65rem",
                                 fontWeight: 500,
-                                letterSpacing: "0.28em",
                                 textTransform: "uppercase",
                                 color: "var(--orange)",
+                                willChange: "filter, letter-spacing"
                             }}
                         >
                             INTERNATIONAL SALES ADVISORY
-                        </p>
+                        </motion.p>
                     </motion.div>
 
                     {/* Main headline — staggered word reveal, Makhno-style */}
@@ -277,13 +295,16 @@ export default function Hero() {
                                     textDecoration: "none",
                                     position: "relative",
                                     overflow: "hidden",
-                                    transition: "background-color 0.3s ease",
+                                    transition: "background-color 0.3s ease, box-shadow 0.3s ease",
+                                    willChange: "background-color, box-shadow",
                                 }}
                                 onMouseEnter={(e) => {
                                     (e.currentTarget as HTMLElement).style.backgroundColor = "var(--orange-hover)";
+                                    (e.currentTarget as HTMLElement).style.boxShadow = "0 10px 30px rgba(200,80,26,0.4)";
                                 }}
                                 onMouseLeave={(e) => {
                                     (e.currentTarget as HTMLElement).style.backgroundColor = "var(--orange)";
+                                    (e.currentTarget as HTMLElement).style.boxShadow = "none";
                                 }}
                             >
                                 <span style={{ position: "relative", zIndex: 1 }}>VIEW INVESTMENT OPPORTUNITIES &rarr;</span>
